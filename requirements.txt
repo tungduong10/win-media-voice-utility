@@ -1,0 +1,11 @@
+winrt-runtime 
+winrt-Windows.Media.Control 
+winrt-Windows.Foundation 
+pycaw 
+keyboard 
+pystray 
+Pillow
+vosk 
+sounddevice
+openwakeword
+pyinstaller

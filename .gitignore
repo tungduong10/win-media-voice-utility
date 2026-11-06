@@ -1,0 +1,29 @@
+# Virtual Environment
+.venv/
+env/
+venv/
+ENV/
+
+# Python Cache & Bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+*.spec
+
+# Vosk Model & Downloaded Wake Word Binaries
+# (Users download these automatically or via instructions)
+model/
+wakewords/
+*.onnx
+*.zip
+
+# PyInstaller Build Artifacts
+build/
+dist/
+
+# OS and Editor junk
+.vscode/
+.idea/
+*.log
+Thumbs.db
+Desktop.ini
