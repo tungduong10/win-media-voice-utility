@@ -53,7 +53,7 @@ pip install -r requirements.txt
 python src/main.py
 ```
 *(Or use `pythonw src/main.py` to run without a command prompt window).*
-
+*(Or use the .bat file)*
 ## Hotkeys
 
 - `Ctrl + Alt + Space`: Pause

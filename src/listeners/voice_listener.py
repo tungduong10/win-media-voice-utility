@@ -1,4 +1,5 @@
 import json
+import sys
 import os
 import queue
 import threading
@@ -10,6 +11,12 @@ import sounddevice as sd
 from openwakeword.model import Model as OwwModel
 from vosk import Model as VoskModel, KaldiRecognizer
 from src.router.command_router import CommandRouter
+
+def get_base_dir() -> str:
+    """Returns the directory of the executable or script."""
+    if getattr(sys, 'frozen', False):
+        return os.path.dirname(sys.executable)
+    return os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 def play_beep():
     threading.Thread(target=lambda: winsound.Beep(1200,80), daemon=True).start()
@@ -28,11 +35,11 @@ class VoiceListener:
         router: CommandRouter,
         vosk_model_path: str = "model",
         wake_word_model: str = "hey_jarvis",
-        wake_threshold: float = 0.15,  # 0.35 is optimal for hey_jarvis natural speech
+        wake_threshold: float = 0.10,  # 0.35 is optimal for hey_jarvis natural speech
         command_timeout: float = 4.0,
     ):
         self.router = router
-        self.vosk_model_path = os.path.abspath(vosk_model_path)
+        self.vosk_model_path = os.path.join(get_base_dir(), vosk_model_path)
         self.wake_word_model = wake_word_model
         self.wake_threshold = wake_threshold
         self.command_timeout = command_timeout

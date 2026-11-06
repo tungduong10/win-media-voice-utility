@@ -1,5 +1,7 @@
+import os
 import sys
 import ctypes
+import traceback
 from src.router.command_router import CommandRouter
 from src.listeners.hotkey_listener import HotkeyListener
 from src.listeners.voice_listener import VoiceListener
@@ -14,6 +16,26 @@ def insure_single_instances(app_id="WinMediaVoiceUtility_Single_Instance_Mutex")
         print("[App] Another instance is already running. Exiting.")
         sys.exit(0)
     return mutex
+
+def setup_logging():
+    log_file = os.path.join(os.path.dirname(sys.executable if getattr(sys, 'frozen', False) else __file__), "app.log")
+    class Logger:
+        def __init__(self, filename):
+            self.terminal = sys.stdout
+            self.log = open(filename, "a", encoding="utf-8")
+        def write(self, message):
+            if self.terminal:
+                self.terminal.write(message)
+            self.log.write(message)
+            self.log.flush()
+        def flush(self):
+            if self.terminal:
+                self.terminal.flush()
+            self.log.flush()
+    sys.stdout = Logger(log_file)
+    sys.stderr = sys.stdout
+
+setup_logging()
 
 def main():
     print("=" * 50)

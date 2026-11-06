@@ -23,7 +23,7 @@ class TrayApp:
 
     def _toggle_listening(self, icon, item):
         self.is_listening = not self.is_listening
-        if self.is_listening:
+        if self.voice_listener is not None:
             self.voice_listener.enabled = self.is_listening
         status = "Enabled" if self.is_listening else "Muted"
         print(f"[Tray] Voice/Input: {status}")
